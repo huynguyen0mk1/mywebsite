@@ -42,5 +42,4 @@ express()
   .set('views', path.join(__dirname, 'views'))
   .set('view engine', 'ejs')
   .get('/', (req, res) => res.send('Hello World'))
-  .get('/cool', (req, res) => res.send('Hello World 1'))
   .listen(PORT, () => routes(app));
