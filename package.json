@@ -1,0 +1,42 @@
+{
+  "name": "risk-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "activedirectory": "^0.7.2",
+    "axios": "^0.19.2",
+    "body-parser": "^1.19.0",
+    "cheerio": "^1.0.0-rc.6",
+    "cors": "^2.8.5",
+    "dateformat": "^3.0.3",
+    "dotenv": "^8.2.0",
+    "elasticsearch": "^16.7.2",
+    "enum": "^3.0.4",
+    "express": "^4.17.1",
+    "express-fileupload": "^1.2.0",
+    "formidable": "^1.2.2",
+    "fs": "0.0.1-security",
+    "hashmap": "^2.4.0",
+    "jsonwebtoken": "^8.5.1",
+    "md5": "^2.3.0",
+    "multer": "^1.4.2",
+    "mysql": "^2.18.1",
+    "node-cron": "^2.0.3",
+    "nodemailer": "^6.4.16",
+    "nodemon": "^2.0.4",
+    "react-doc-viewer": "^0.1.5",
+    "request": "^2.88.2",
+    "request-promise": "^4.2.6",
+    "string-builder": "^0.1.7",
+    "unzip": "^0.1.11",
+    "uuid": "^8.3.2",
+    "vn-payments": "^1.1.0"
+  }
+}
