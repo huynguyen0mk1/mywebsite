@@ -14,8 +14,8 @@ cron.schedule("30 8 * * MON-FRI", async function () {
   axios.get(process.env.IP + "/remindRisk");
 });
 
-port = process.env.PORT || 3001;
-app.listen(port, "0.0.0.0");
+port = process.env.PORT || 5000;
+app.listen(port, () => console.log(`Listening on ${ PORT }`));
 
 console.log("API server started on: " + port);
 
