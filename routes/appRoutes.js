@@ -3,64 +3,8 @@ const jwt = require("jsonwebtoken");
 module.exports = function (app) {
   var crawl = require("../controllers/crawlDataController");
   var login = require("../controllers/loginController");
-  // var elasticsearch = require("elasticsearch");
-  // var client = new elasticsearch.Client({
-  //   host: "localhost:9200",
-  // });
-
-  // app.post("/getcrawl").post(crawl.getCrawlData);
-  // app.route("/getcrawl1").get(crawl.getCrawlData);
-  // app.post("/getLink").post(crawl.getCrawlLink);
-  // app.route("/dangkitaikhoan").post(login.saveUser);
-  // app.route("/login/taikhoan/:user/:pass").post(login.getUser);
-  // app.route("/kiemtrataikhoan/:user/:pass").post(login.getRole);
-  // app.route("/getAllUser/:user/:pass").post(login.getAllUser);
-  // app.route("/getsearchdatacrawl/:user/:pass").post(crawl.getsearchdatacrawl);
-  // app.route("/getDataOfId/:user/:pass").post(crawl.getDataOfId);
-  // app.route("/saveData").post(crawl.saveData);
-  // app.route("/getHistory").post(crawl.getHistory);
-  // // app.route("/getsearchdatacrawl").get(crawl.getsearchdatacrawl);
-  // app.route("/getlinkcrawl").post(crawl.getlinkcrawl);
-  // app.route("/getdatacrawl").post(crawl.getdatacrawl);
-
-  // app.route("/updatecrawl").post(crawl.updateData);
-  // app.route("/updatelinkcrawl").post(crawl.updatelinkcrawl);
-
-  app.get("/view/:name",(req, res) => {
-    const fileName = req.params.name;
-    console.log(fileName);
-    readFile(fileName, res);
-  });
   app.get('/', (req, res) => res.send('Hello World'));
-
-  function readFile(fileName, res) {
-    const path = require("path");
-    const pathFile = path.resolve(`./public/images/${fileName}`);
-    // console.log("=======>" + pathFile);
-    let file = "No found file";
-
-    const fs = require("fs");
-    if (require("fs").existsSync(pathFile)) {
-      let stat = fs.statSync(pathFile);
-
-      res.writeHead(200, {
-        "Content-Type": "audio/mpeg",
-        "Content-Length": stat.size,
-        "Content-Disposition": "attachment; filename=sound.mp3",
-      });
-
-      let readStream = fs.createReadStream(pathFile);
-      // We replaced all the event handlers with a simple call to readStream.pipe()
-      readStream.on("open", function () {
-        // This just pipes the read stream to the response object (which goes to the client)
-        readStream.pipe(res);
-      });
-
-      readStream.on("error", function (err) {
-        res.end(err);
-      });
-    } else res.send(file);
-  }
+  
   async function sendfile(fileName, pathFile, res) {
     let file = "No found file";
     const fs = require("fs");
@@ -322,85 +266,22 @@ module.exports = function (app) {
     const pathFile = path.resolve(`./public/audio/${fileName}`);
     sendfile(fileName, pathFile, res);
   });
-  // app.get("/test/elasticsearch/post",(req, res) => {
-  //   client.index(
-  //     {
-  //       index: "tbl_data_drawl",
-  //       type: "myType",
-  //       id: new Date().getTime().toString(),
-  //       body: {
-  //         idLinkCrawl: "1624990957158",
-  //         idSubLinkCrawl: "112",
-  //         idDataCrawl: "1624990957158_113_000",
-  //         idTextLanguage2: "1624990957158_113_0011",
-  //         textLanguage1: "Who are you",
-  //       },
-  //     },
-  //     (err) => {
-  //       if (err) {
-  //         res.json({ msg: "false" });
-  //       } else res.json({ msg: "true" });
-  //     }
-  //   );
-  // });
-  // app.route("/test/elasticsearch/post1").get((req, res) => {
-  //   client.index(
-  //     {
-  //       index: "tbl_data_drawl",
-  //       type: "myType",
-  //       id: new Date().getTime().toString(),
-  //       body: {
-  //         idLinkCrawl: "1624990957158",
-  //         idSubLinkCrawl: "112",
-  //         idDataCrawl: "1624990957158_113_0011",
-  //         idTextLanguage2: "",
-  //         textLanguage1: "Bạn là ai",
-  //       },
-  //     },
-  //     (err) => {
-  //       if (err) {
-  //         res.json({ msg: "false" });
-  //       } else res.json({ msg: "true" });
-  //     }
-  //   );
-  // });
-  // app.route("/test/elasticsearch/get/:id").get((req, res) => {
-  //   client.get(
-  //     {
-  //       index: "crawl_data",
-  //       type: "myType",
-  //       id: req.params.id,
-  //     },
-  //     (err, resq) => {
-  //       if (err) {
-  //         res.json({ msg: "false" });
-  //       } else res.json({ msg: "true", data: resq._source });
-  //     }
-  //   );
-  // });
-  // app.route("/test/elasticsearch/get/").get((req, res) => {
-  //   let allRecords = [];
-
-  //   client.search(
-  //     {
-  //       index: "tbl_data_drawl",
-  //       type: "myType",
-  //       scroll: "10s",
-  //       size: 1000,
-  //       body: {
-  //         query: {
-  //           query_string: {
-  //             query: "*Workplace Conflict*",
-  //             fields: ["textLanguage1"],
-  //           },
-  //         },
-
-  //         _source: true,
-  //       },
-  //     },
-  //     function (err, resp) {
-  //       res.json({ msg: "true", data: resp.hits.hits });
-  //     }
-  //   );
-  // });
+  app.get("/getImage/:fileName",(req, res) => {
+    let fileName = req.params.fileName;
+    const path = require("path");
+    const pathFile = path.resolve(`./public/images/${fileName}`);
+    sendfile(fileName, pathFile, res);
+  });
+  app.get("/getCss/:fileName",(req, res) => {
+    let fileName = req.params.fileName;
+    const path = require("path");
+    const pathFile = path.resolve(`./public/css/${fileName}`);
+    sendfile(fileName, pathFile, res);
+  });
+  app.get("/getJs/:fileName",(req, res) => {
+    let fileName = req.params.fileName;
+    const path = require("path");
+    const pathFile = path.resolve(`./public/js/${fileName}`);
+    sendfile(fileName, pathFile, res);
+  });
 };
