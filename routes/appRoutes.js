@@ -3,36 +3,36 @@ const jwt = require("jsonwebtoken");
 module.exports = function (app) {
   var crawl = require("../controllers/crawlDataController");
   var login = require("../controllers/loginController");
-  var elasticsearch = require("elasticsearch");
-  var client = new elasticsearch.Client({
-    host: "localhost:9200",
-  });
+  // var elasticsearch = require("elasticsearch");
+  // var client = new elasticsearch.Client({
+  //   host: "localhost:9200",
+  // });
 
-  app.route("/getcrawl").post(crawl.getCrawlData);
-  app.route("/getcrawl1").get(crawl.getCrawlData);
-  app.route("/getLink").post(crawl.getCrawlLink);
-  app.route("/dangkitaikhoan").post(login.saveUser);
-  app.route("/login/taikhoan/:user/:pass").post(login.getUser);
-  app.route("/kiemtrataikhoan/:user/:pass").post(login.getRole);
-  app.route("/getAllUser/:user/:pass").post(login.getAllUser);
-  app.route("/getsearchdatacrawl/:user/:pass").post(crawl.getsearchdatacrawl);
-  app.route("/getDataOfId/:user/:pass").post(crawl.getDataOfId);
-  app.route("/saveData").post(crawl.saveData);
-  app.route("/getHistory").post(crawl.getHistory);
-  // app.route("/getsearchdatacrawl").get(crawl.getsearchdatacrawl);
-  app.route("/getlinkcrawl").post(crawl.getlinkcrawl);
-  app.route("/getdatacrawl").post(crawl.getdatacrawl);
+  // app.post("/getcrawl").post(crawl.getCrawlData);
+  // app.route("/getcrawl1").get(crawl.getCrawlData);
+  // app.post("/getLink").post(crawl.getCrawlLink);
+  // app.route("/dangkitaikhoan").post(login.saveUser);
+  // app.route("/login/taikhoan/:user/:pass").post(login.getUser);
+  // app.route("/kiemtrataikhoan/:user/:pass").post(login.getRole);
+  // app.route("/getAllUser/:user/:pass").post(login.getAllUser);
+  // app.route("/getsearchdatacrawl/:user/:pass").post(crawl.getsearchdatacrawl);
+  // app.route("/getDataOfId/:user/:pass").post(crawl.getDataOfId);
+  // app.route("/saveData").post(crawl.saveData);
+  // app.route("/getHistory").post(crawl.getHistory);
+  // // app.route("/getsearchdatacrawl").get(crawl.getsearchdatacrawl);
+  // app.route("/getlinkcrawl").post(crawl.getlinkcrawl);
+  // app.route("/getdatacrawl").post(crawl.getdatacrawl);
 
-  app.route("/updatecrawl").post(crawl.updateData);
-  app.route("/updatelinkcrawl").post(crawl.updatelinkcrawl);
+  // app.route("/updatecrawl").post(crawl.updateData);
+  // app.route("/updatelinkcrawl").post(crawl.updatelinkcrawl);
 
-  app.route("/view/:name").get((req, res) => {
+  app.get("/view/:name",(req, res) => {
     const fileName = req.params.name;
     console.log(fileName);
     readFile(fileName, res);
   });
-  app.route("/").get('/', (req, res) => res.send('Hello World'));
-  
+  app.get('/', (req, res) => res.send('Hello World'));
+
   function readFile(fileName, res) {
     const path = require("path");
     const pathFile = path.resolve(`./public/images/${fileName}`);
@@ -316,91 +316,91 @@ module.exports = function (app) {
       });
     } else res.send(file);
   }
-  app.route("/getAudio/:num").get((req, res) => {
+  app.get("/getAudio/:num",(req, res) => {
     let fileName = req.params.num;
     const path = require("path");
     const pathFile = path.resolve(`./public/audio/${fileName}`);
     sendfile(fileName, pathFile, res);
   });
-  app.route("/test/elasticsearch/post").get((req, res) => {
-    client.index(
-      {
-        index: "tbl_data_drawl",
-        type: "myType",
-        id: new Date().getTime().toString(),
-        body: {
-          idLinkCrawl: "1624990957158",
-          idSubLinkCrawl: "112",
-          idDataCrawl: "1624990957158_113_000",
-          idTextLanguage2: "1624990957158_113_0011",
-          textLanguage1: "Who are you",
-        },
-      },
-      (err) => {
-        if (err) {
-          res.json({ msg: "false" });
-        } else res.json({ msg: "true" });
-      }
-    );
-  });
-  app.route("/test/elasticsearch/post1").get((req, res) => {
-    client.index(
-      {
-        index: "tbl_data_drawl",
-        type: "myType",
-        id: new Date().getTime().toString(),
-        body: {
-          idLinkCrawl: "1624990957158",
-          idSubLinkCrawl: "112",
-          idDataCrawl: "1624990957158_113_0011",
-          idTextLanguage2: "",
-          textLanguage1: "Bạn là ai",
-        },
-      },
-      (err) => {
-        if (err) {
-          res.json({ msg: "false" });
-        } else res.json({ msg: "true" });
-      }
-    );
-  });
-  app.route("/test/elasticsearch/get/:id").get((req, res) => {
-    client.get(
-      {
-        index: "crawl_data",
-        type: "myType",
-        id: req.params.id,
-      },
-      (err, resq) => {
-        if (err) {
-          res.json({ msg: "false" });
-        } else res.json({ msg: "true", data: resq._source });
-      }
-    );
-  });
-  app.route("/test/elasticsearch/get/").get((req, res) => {
-    let allRecords = [];
+  // app.get("/test/elasticsearch/post",(req, res) => {
+  //   client.index(
+  //     {
+  //       index: "tbl_data_drawl",
+  //       type: "myType",
+  //       id: new Date().getTime().toString(),
+  //       body: {
+  //         idLinkCrawl: "1624990957158",
+  //         idSubLinkCrawl: "112",
+  //         idDataCrawl: "1624990957158_113_000",
+  //         idTextLanguage2: "1624990957158_113_0011",
+  //         textLanguage1: "Who are you",
+  //       },
+  //     },
+  //     (err) => {
+  //       if (err) {
+  //         res.json({ msg: "false" });
+  //       } else res.json({ msg: "true" });
+  //     }
+  //   );
+  // });
+  // app.route("/test/elasticsearch/post1").get((req, res) => {
+  //   client.index(
+  //     {
+  //       index: "tbl_data_drawl",
+  //       type: "myType",
+  //       id: new Date().getTime().toString(),
+  //       body: {
+  //         idLinkCrawl: "1624990957158",
+  //         idSubLinkCrawl: "112",
+  //         idDataCrawl: "1624990957158_113_0011",
+  //         idTextLanguage2: "",
+  //         textLanguage1: "Bạn là ai",
+  //       },
+  //     },
+  //     (err) => {
+  //       if (err) {
+  //         res.json({ msg: "false" });
+  //       } else res.json({ msg: "true" });
+  //     }
+  //   );
+  // });
+  // app.route("/test/elasticsearch/get/:id").get((req, res) => {
+  //   client.get(
+  //     {
+  //       index: "crawl_data",
+  //       type: "myType",
+  //       id: req.params.id,
+  //     },
+  //     (err, resq) => {
+  //       if (err) {
+  //         res.json({ msg: "false" });
+  //       } else res.json({ msg: "true", data: resq._source });
+  //     }
+  //   );
+  // });
+  // app.route("/test/elasticsearch/get/").get((req, res) => {
+  //   let allRecords = [];
 
-    client.search(
-      {
-        index: "tbl_data_drawl",
-        type: "myType",
-        scroll: "10s",
-        size: 1000,
-        body: {
-          query: {
-            query_string: {
-              query: "*Workplace Conflict*",
-              fields: ["textLanguage1"],
-            },
-          },
+  //   client.search(
+  //     {
+  //       index: "tbl_data_drawl",
+  //       type: "myType",
+  //       scroll: "10s",
+  //       size: 1000,
+  //       body: {
+  //         query: {
+  //           query_string: {
+  //             query: "*Workplace Conflict*",
+  //             fields: ["textLanguage1"],
+  //           },
+  //         },
 
-          _source: true,
-        },
-      },
-      function (err, resp) {
-        res.json({ msg: "true", data: resp.hits.hits });
-      }
-    );
-  });
+  //         _source: true,
+  //       },
+  //     },
+  //     function (err, resp) {
+  //       res.json({ msg: "true", data: resp.hits.hits });
+  //     }
+  //   );
+  // });
 };
