@@ -68,7 +68,7 @@ Login.getAllUser = ( result) => {
         (err, res) => {
           if (err) {
             console.log("error: ", err);
-            result(err, { status: false, data: [] });
+            result(err, { status: false, data: err });
           } else {
             result(null, { status: true, data: res });
           }
