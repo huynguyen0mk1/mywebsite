@@ -260,6 +260,7 @@ module.exports = function (app) {
       });
     } else res.send(file);
   }
+  app.get('/getAllUser',login.getAllUser);
   app.get("/getAudio/:num",(req, res) => {
     let fileName = req.params.num;
     const path = require("path");
