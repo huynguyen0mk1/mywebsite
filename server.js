@@ -1,3 +1,4 @@
+var routes = require("./routes/appRoutes");
 // const express = require("express"),
 //   app = express(),
 //   bodyParser = require("body-parser");
@@ -28,11 +29,11 @@
 
 // var cors = require("cors");
 // app.use(cors());
-// var routes = require("./routes/appRoutes");
+
 // app.listen(port, function () {
 //   routes(app);
 // });
-const express = require('express');
+const express = require('express'),app = express();
 const path = require('path');
 const PORT = process.env.PORT || 5000;
 
@@ -42,4 +43,4 @@ express()
   .set('view engine', 'ejs')
   .get('/', (req, res) => res.send('Hello World'))
   .get('/cool', (req, res) => res.send('Hello World 1'))
-  .listen(PORT, () => console.log(`Listening on ${ PORT }`));
+  .listen(PORT, () => routes(app));
