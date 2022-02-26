@@ -31,7 +31,8 @@ module.exports = function (app) {
     console.log(fileName);
     readFile(fileName, res);
   });
-
+  app.route("/").get('/', (req, res) => res.send('Hello World'));
+  
   function readFile(fileName, res) {
     const path = require("path");
     const pathFile = path.resolve(`./public/images/${fileName}`);
